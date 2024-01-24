@@ -40,8 +40,7 @@ const login = function (event) {
             confirmButtonText: 'Intentar de nuevo',
           }).then(result => {
             if (result.isConfirmed) {
-              userInput.value = '';
-              passInput.value = '';
+              userInput.value = passInput.value = '';
             }
           });
         }
