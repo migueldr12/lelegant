@@ -1,0 +1,16 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3568 973" width="3568" height="973">
+	<title>Proyecto nuevo</title>
+	<style>
+		tspan { white-space:pre } 
+		.t0 { font-size: 400px;fill: #323330;font-weight: 500;font-family: "NotoSerifDisplay-Medium", "Noto Serif Display" } 
+		.t1 { font-size: 180px;fill: #323330;font-weight: 400;font-family: "Questrial-Regular", "Questrial" } 
+	</style>
+	<text id="l'élégant" style="transform: matrix(1,0,0,1,255,591)" >
+		<tspan x="0" y="0" class="t0">l</tspan><tspan  y="0" class="t0">'</tspan><tspan  y="0" class="t0">é</tspan><tspan  y="0" class="t0">l</tspan><tspan  y="0" class="t0">é</tspan><tspan  y="0" class="t0">g</tspan><tspan  y="0" class="t0">a</tspan><tspan  y="0" class="t0">n</tspan><tspan  y="0" class="t0">t</tspan><tspan  y="0" class="t0">
+</tspan>
+	</text>
+	<text id="CHAT NOIR" style="transform: matrix(1,0,0,1,1896,587)" >
+		<tspan x="0" y="0" class="t1">C</tspan><tspan  y="0" class="t1">H</tspan><tspan  y="0" class="t1">A</tspan><tspan  y="0" class="t1">T</tspan><tspan  y="0" class="t1"> </tspan><tspan  y="0" class="t1">N</tspan><tspan  y="0" class="t1">O</tspan><tspan  y="0" class="t1">I</tspan><tspan  y="0" class="t1">R</tspan><tspan  y="0" class="t1">
+</tspan>
+	</text>
+</svg>
