@@ -11,45 +11,51 @@ const login = function (event) {
   passInput.classList.remove('is-invalid');
   blockAlert.style.display = 'none';
 
-  if (userValue === '') {
+  if (userValue === '' || passValue === '') {
     userInput.classList.add('is-invalid');
-    blockAlert.style.display = 'block';
-  } else if (passValue === '') {
     passInput.classList.add('is-invalid');
     blockAlert.style.display = 'block';
-  } else {
-    const appContext = window.location.pathname.split('/')[1];
-
-    fetch(
-      `/${appContext}/api/login/log?txtUser=${userValue}&txtPassword=${passValue}`
-    )
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-      })
-      .then(data => {
-        if (data > 0) {
-          location.href = './admin/index.html';
-        } else {
-          Swal.fire({
-            text: 'Usuario no encontrado',
-            icon: 'info',
-            confirmButtonText: 'Intentar de nuevo',
-          }).then(result => {
-            if (result.isConfirmed) {
-              userInput.value = passInput.value = '';
-            }
-          });
-        }
-      })
-      .catch(error => {
-        // Manejar errores de red u otros errores
-        console.error('Error en la solicitud:', error);
-      });
+    return;
   }
+
+  const appContext = window.location.pathname.split('/')[1];
+  console.log(userValue, passValue);
+  fetch(`/${appContext}/api/login/log`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      txtUser: userValue,
+      txtPassword: passValue,
+    }),
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`Error en la solicitud: ${response.statusText}`);
+      }
+    })
+    .then(data => {
+      if (data > 0) {
+        location.href = './admin/index.html';
+      } else {
+        Swal.fire({
+          text: 'Usuario no encontrado',
+          icon: 'info',
+          confirmButtonText: 'Intentar de nuevo',
+        }).then(result => {
+          if (result.isConfirmed) {
+            userInput.value = passInput.value = '';
+          }
+        });
+      }
+    })
+    .catch(error => {
+      // Manejar errores de red u otros errores
+      console.error('Error en la solicitud:', error);
+    });
 };
 
 
