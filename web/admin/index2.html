@@ -6,72 +6,100 @@
     <link rel="icon" href="../assets/img/logos/isotipo-yellow-transparent.svg" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <title>L'Élegant Chat Noir</title>
 </head>
 <body>
     <header>
-        <nav>
-            <input type="checkbox" id="check">
-            <label for="check" class="checkbtn">
-              <i class="fas fa-bars"></i>
-            </label>
-            <div class="logo">
-                <img src="../assets/img/logos/isotipo-black-transparent.svg" class="icon-logo" alt="logo" width="80">
-                <span class="title">l'élégant</span>
-                <span class="subtitle">CHAT NOIR</span>
+        <nav class="navbar navbar-expand-lg navbar-yellow bg-yellow">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/img/logos/isotipo-black-transparent.svg" class="icon-logo" alt="logo" width="80">
+                    <span class="title">l'élégant</span>
+                    <span class="subtitle">CHAT NOIR</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./index2.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./productos.html">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./compras.html">Compras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./ventas.html">Ventas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./empleados.html">Empleados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Cerrar Sesion</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul style="    padding-top: 0px;
-            padding-left: 0px;
-            margin-right: 0px;
-            margin-bottom: 0px;
-            margin-left: 0px;">
-              <li><a class="active" href="./index2.html">home</a></li>
-              <li><a href="./productos.html">PRODUCTOS</a></li>
-              <li><a href="./compras.html">compras</a></li>
-              <li><a href="./ventas.html">ventas</a></li>
-              <li><a href="./empleados.html">empleados</a></li>
-            </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero-section">
-            <article class="hero-article">
-                <h1 class="hero-text">¡Bienvenido!</h1>
-            </article>
+            <div class="container">
+                <div class="row justify-content-center align-items-center text-center">
+                    <div class="col-md-8">
+                        <h1 class="hero-text">¡Bienvenido!</h1>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="mision">
-            <article>
-                <h2 class="section-title">Misión</h2>
-                <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, nemo ducimus? Laboriosam vero reiciendis itaque pariatur repudiandae assumenda ab laborum excepturi, at consectetur dicta non molestias eligendi mollitia quisquam blanditiis.
-                Dignissimos exercitationem ipsa voluptatibus accusantium suscipit, vel debitis. Magni nemo dolore iure adipisci, vitae enim odit ratione ducimus quis voluptates minus ipsum iste modi fugiat molestias at quae. Asperiores, tempore.</p>
-            </article>
+        <section class="mision bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="section-title">Misión</h2>
+                        <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. ...</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="vision">
-            <article>
-                <h2 class="section-title">Visión</h2>
-                <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, nemo ducimus? Laboriosam vero reiciendis itaque pariatur repudiandae assumenda ab laborum excepturi, at consectetur dicta non molestias eligendi mollitia quisquam blanditiis.
-                Dignissimos exercitationem ipsa voluptatibus accusantium suscipit, vel debitis. Magni nemo dolore iure adipisci, vitae enim odit ratione ducimus quis voluptates minus ipsum iste modi fugiat molestias at quae. Asperiores, tempore.</p>
-            </article>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="section-title">Visión</h2>
+                        <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. ...</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="valores">
-            <article>
-                <h2 class="section-title">Valores</h2>
-                <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, nemo ducimus? Laboriosam vero reiciendis itaque pariatur repudiandae assumenda ab laborum excepturi, at consectetur dicta non molestias eligendi mollitia quisquam blanditiis.
-                Dignissimos exercitationem ipsa voluptatibus accusantium suscipit, vel debitis. Magni nemo dolore iure adipisci, vitae enim odit ratione ducimus quis voluptates minus ipsum iste modi fugiat molestias at quae. Asperiores, tempore.</p>
-            </article>
+        <section class="valores bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="section-title">Valores</h2>
+                        <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. ...</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p class="footer-text">L'Élégant Chat Noir, 2024.</p>
+    <footer class="bg-dark text-light">
+        <div class="container">
+            <p class="footer-text">L'Élégant Chat Noir, 2024.</p>
+        </div>
     </footer>
-    
-    
+
+    <!-- Bootstrap JS Bundle (popper.js + bootstrap.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qBtT4Z5XNDrBDLmgq8l+9J1JSa6dArIUp9d7Lc5gaUATsnz0hY3dAasU8AObdS+2" crossorigin="anonymous"></script>
 </body>
 </html>
