@@ -7,13 +7,15 @@
     color: #323330;
 }
 
+header {
+
+    position: sticky;
+}
+
 body {
     display: flex;
     flex-direction: column;
     font-family: Questrial, serif !important;
-}
-
-.login-body {
 }
 
 .title {
@@ -112,7 +114,7 @@ a:hover {
 }
 
 .section-text {
-    font-size: 1.8em;
+    font-size: 1.8vw;
 }
 
 article {
@@ -135,7 +137,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30vh;
+    height: 15vh;
 }
 
 .hero-text {
@@ -156,19 +158,22 @@ main {
 
 .mision {
     width: 100%;
-    height: 35rem;
+    height: 44rem;
     background-image: url(../assets/img/img1.png);
 }
 
-.vision {
-    width: 100%;
-    height: 35rem;
+.valores {
+    background-color: #FFD700;
 }
 
+.vision,
 .valores {
     width: 100%;
-    height: 35rem;
-    background-color: #FFD700;
+    height: 60vh;
+}
+
+.section-text {
+    font-size: 2.1em;
 }
 
 /* footer */
@@ -225,8 +230,20 @@ footer {
     }
 
     .section-text {
-        font-size: 2.5vmin;
+        font-size: 150%;
     }
+
+    .mision {
+        width: 100%;
+        height: 40rem;
+    }
+
+    .vision,
+    .valores {
+        width: 100%;
+        height: 55vh;
+    }
+
 }
 
 @media (max-width: 858px) {
@@ -237,13 +254,15 @@ footer {
     ul {
         position: fixed;
         width: 100%;
-        height: 100vh;
+        height: 55vh;
         background: #f3f3f3;
         top: 8em;
         left: -100%;
         text-align: center;
         transition: all .5s;
         margin-top: 0;
+        position: absolute;
+        top: 320px;
     }
 
     nav ul li {
@@ -267,11 +286,26 @@ footer {
     }
 
     .section-text {
-        font-size: 2.5vmin;
+        font-size: 2vh;
+    }
+
+    .mision {
+        z-index: -1;
+    }
+
+    .vision,
+    .valores {
+        width: 100%;
+        height: 60vh;
     }
 }
 
 @media (max-width: 685px) {
+    body {
+        display: flex;
+    }
+
+
     .icon-logo {
         display: none;
     }
@@ -295,7 +329,13 @@ footer {
     }
 
     .section-text {
-        font-size: 3vmin;
+        font-size: 1.8vh;
+    }
+
+    .vision,
+    .valores {
+        width: 100%;
+        height: 45rem;
     }
 
 }
