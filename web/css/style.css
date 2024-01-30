@@ -7,16 +7,13 @@
     color: #323330;
 }
 
-header {
-
-    position: sticky;
-}
 
 body {
     display: flex;
     flex-direction: column;
     font-family: Questrial, serif !important;
 }
+
 
 .title {
     font-family: "Noto Serif Display", serif;
@@ -129,6 +126,7 @@ article {
 main {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 /* hero section */
@@ -196,10 +194,6 @@ footer {
 
 
 @media (min-width: 860px) and (max-width: 1322px) {
-    body {
-        display: flex;
-        flex-direction: column;
-    }
 
     .logo {
         padding-top: 4rem;
@@ -301,11 +295,6 @@ footer {
 }
 
 @media (max-width: 685px) {
-    body {
-        display: flex;
-    }
-
-
     .icon-logo {
         display: none;
     }
@@ -335,13 +324,7 @@ footer {
     .vision,
     .valores {
         width: 100%;
-        height: 45rem;
+        height: auto;
     }
 
-}
-
-section {
-    background: url(bg1.jpg) no-repeat;
-    background-size: cover;
-    height: calc(100vh - 80px);
 }
