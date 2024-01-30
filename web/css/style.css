@@ -7,11 +7,11 @@
     color: #323330;
 }
 
-
 body {
     display: flex;
     flex-direction: column;
     font-family: Questrial, serif !important;
+    font-size: 16px;
 }
 
 
@@ -48,6 +48,7 @@ nav {
     justify-content: center;
     align-items: center;
     flex: 1;
+
 }
 
 label.logo {
@@ -61,6 +62,7 @@ nav ul {
     float: right;
     margin-right: 20px;
     padding-left: 10rem;
+
 }
 
 nav ul li {
@@ -76,6 +78,7 @@ nav ul li a {
     border-radius: 3px;
     text-transform: uppercase;
     text-decoration: none;
+    font-size: 1.6rem;
 }
 
 ul {
@@ -111,7 +114,7 @@ a:hover {
 }
 
 .section-text {
-    font-size: 1.8vw;
+    font-size: 2em;
 }
 
 article {
@@ -126,7 +129,6 @@ article {
 main {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
 }
 
 /* hero section */
@@ -135,7 +137,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 15vh;
+    height: 10em;
 }
 
 .hero-text {
@@ -154,24 +156,27 @@ main {
     display: block;
 }
 
+section {
+    display: flex;
+    align-items: center;
+}
+
 .mision {
     width: 100%;
-    height: 44rem;
+    height: 40rem;
     background-image: url(../assets/img/img1.png);
+    
 }
 
-.valores {
-    background-color: #FFD700;
+.vision {
+    width: 100%;
+    height: 35rem;
 }
 
-.vision,
 .valores {
     width: 100%;
-    height: 60vh;
-}
-
-.section-text {
-    font-size: 2.1em;
+    height: 35rem;
+    background-color: #FFD700;
 }
 
 /* footer */
@@ -193,7 +198,11 @@ footer {
 
 
 
-@media (min-width: 860px) and (max-width: 1322px) {
+@media (min-width: 1020px) and (max-width: 1500px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
 
     .logo {
         padding-top: 4rem;
@@ -219,54 +228,48 @@ footer {
     }
 
     nav ul li a {
-        font-size: 16px;
+        font-size: 1.3rem;
 
     }
 
     .section-text {
-        font-size: 150%;
+        font-size: 1.6rem;
     }
 
-    .mision {
-        width: 100%;
-        height: 40rem;
+    section {
+        height: 100vh;
     }
-
-    .vision,
-    .valores {
-        width: 100%;
-        height: 55vh;
-    }
-
 }
 
-@media (max-width: 858px) {
+@media (max-width: 1020px) {
     .checkbtn {
         display: block;
     }
 
     ul {
-        position: fixed;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
         width: 100%;
-        height: 55vh;
+        height: 45%;
         background: #f3f3f3;
-        top: 8em;
+        top: 18em;
         left: -100%;
         text-align: center;
         transition: all .5s;
         margin-top: 0;
-        position: absolute;
-        top: 320px;
+        z-index: 2;
+        justify-content: center;
     }
 
     nav ul li {
         display: block;
-        margin: 50px 0;
+        margin: 2rem 0;
         line-height: 30px;
     }
 
     nav ul li a {
-        font-size: 20px;
+        font-size: 1.5rem;
     }
 
     a:hover,
@@ -280,21 +283,15 @@ footer {
     }
 
     .section-text {
-        font-size: 2vh;
+        font-size: 2.5vmin;
     }
 
-    .mision {
-        z-index: -1;
-    }
-
-    .vision,
-    .valores {
-        width: 100%;
-        height: 60vh;
+    .section-title {
+        font-size: 3rem;
     }
 }
 
-@media (max-width: 685px) {
+@media (max-width: 750px) {
     .icon-logo {
         display: none;
     }
@@ -317,14 +314,18 @@ footer {
         margin-right: -2rem;
     }
 
+    .section-title {
+        font-size: 3rem;
+    }
+
     .section-text {
-        font-size: 1.8vh;
+        font-size: 3vmin;
     }
 
-    .vision,
-    .valores {
-        width: 100%;
-        height: auto;
-    }
+}
 
+section {
+    background: url(bg1.jpg) no-repeat;
+    background-size: cover;
+    height: calc(100vh - 80px);
 }
