@@ -1,60 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <link rel="icon" href="../assets/img/logos/isotipo-yellow-transparent.svg" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="../assets/img/logos/isotipo-yellow-transparent.svg"
+      type="image/png"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>L'Élegant Chat Noir</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <input type="checkbox" id="check">
-            <label for="check" class="checkbtn">
-              <i class="fas fa-bars"></i>
-            </label>
-            <div class="logo">
-                <img src="../assets/img/logos/isotipo-black-transparent.svg" class="icon-logo" alt="logo" width="80">
-                <span class="title">l'élégant</span>
-                <span class="subtitle">CHAT NOIR</span>
-            </div>
-            <ul style="    padding-top: 0px;
+      <nav>
+        <input type="checkbox" id="check" />
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <div class="logo">
+          <img
+            src="../assets/img/logos/isotipo-black-transparent.svg"
+            class="icon-logo"
+            alt="logo"
+            width="80"
+          />
+          <span class="title">l'élégant</span>
+          <span class="subtitle">CHAT NOIR</span>
+        </div>
+        <ul
+          style="
+            padding-top: 0px;
             padding-left: 0px;
             margin-right: 0px;
             margin-bottom: 0px;
-            margin-left: 0px;">
-              <li><a href="./index2.html">home</a></li>
-              <li><a class="active" href="./productos.html">PRODUCTOS</a></li>
-              <li><a href="./compras.html">compras</a></li>
-              <li><a href="./ventas.html">ventas</a></li>
-              <li><a href="./empleados.html">empleados</a></li>
-            </ul>
-        </nav>
+            margin-left: 0px;
+          "
+        >
+          <li><a href="./index.html">home</a></li>
+          <li><a class="active" href="./productos.html">PRODUCTOS</a></li>
+          <li><a href="./compras.html">compras</a></li>
+          <li><a href="./ventas.html">ventas</a></li>
+          <li><a href="./empleados.html">empleados</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <main>
-        <section class="hero-section">
-            <article class="hero-article">
-                <h1 class="hero-text productos">Productos</h1>
-            </article>
-        </section>
-
-        <section class="vision">
-            <article>
-                <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, nemo ducimus? Laboriosam vero reiciendis itaque pariatur repudiandae assumenda ab laborum excepturi, at consectetur dicta non molestias eligendi mollitia quisquam blanditiis.
-                Dignissimos exercitationem ipsa voluptatibus accusantium suscipit, vel debitis. Magni nemo dolore iure adipisci, vitae enim odit ratione ducimus quis voluptates minus ipsum iste modi fugiat molestias at quae. Asperiores, tempore.</p>
-            </article>
-        </section>
+    <main id="contenedorPrincipal">
+      <div class="card m-3">
+        <div class="card-header text-center">
+          <h5>Listado de productos</h5>
+        </div>
+        <div class="card-body">
+          <div class="col-12">
+            <table class="table">
+              <thead class="table-light text-center">
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Año de lanzamiento</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Presentación</th>
+                  <th scope="col">Género</th>
+                  <th scope="col">Departamento</th>
+                  <th scope="col">Precio inventario</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Precio sugerido</th>
+                  <th scope="col">Foto</th>
+                  <th scope="col">Código de barras</th>
+                  <th scope="col">Estatus</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr>
+                  <td>Producto1</td>
+                  <td>Descripción del Producto 1</td>
+                  <td>2022</td>
+                  <td>MarcaX</td>
+                  <td>Presentación1</td>
+                  <td>Género1</td>
+                  <td>Departamento1</td>
+                  <td>$20.00</td>
+                  <td>100</td>
+                  <td>$25.00</td>
+                  <td><img src="ruta/foto1.jpg" alt="Foto Producto 1" /></td>
+                  <td>123456789012</td>
+                  <td>Activo</td>
+                </tr>
+                <tr>
+                  <td>Producto2</td>
+                  <td>Descripción del Producto 2</td>
+                  <td>2021</td>
+                  <td>MarcaY</td>
+                  <td>Presentación2</td>
+                  <td>Género2</td>
+                  <td>Departamento2</td>
+                  <td>$15.00</td>
+                  <td>50</td>
+                  <td>$18.00</td>
+                  <td><img src="ruta/foto2.jpg" alt="Foto Producto 2" /></td>
+                  <td>987654321098</td>
+                  <td>Activo</td>
+                </tr>
+                <!-- Agrega más filas según sea necesario -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn btn-warning m-2"
+            id="btnRegistroProducto"
+          >
+            Registrar producto
+          </button>
+        </div>
+      </div>
     </main>
-
-    <footer>
-        <p class="footer-text">L'Élégant Chat Noir, 2024.</p>
+    <footer class="fixed-bottom p-2">
+      <p class="footer-text">L'Élégant Chat Noir, 2024.</p>
     </footer>
-    
-    
-</body>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

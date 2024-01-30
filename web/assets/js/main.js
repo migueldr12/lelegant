@@ -39,7 +39,7 @@ const login = function (event) {
     })
     .then(data => {
       if (data > 0) {
-        location.href = './admin/index.html';
+        location.href = './admin/index2.html';
       } else {
         Swal.fire({
           text: 'Usuario no encontrado',
