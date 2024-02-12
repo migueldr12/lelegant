@@ -16,6 +16,25 @@ document
         });
       });
   });
+let rm = null;
+
+document
+  .getElementById("btnRegistroEmpleado")
+  .addEventListener("click", function () {
+    fetch("./modules/agregarEmpleado.html")
+      .then((respuesta) => {
+        return respuesta.text();
+      })
+      .then((datos) => {
+        document.getElementById("contenedorPrincipal").innerHTML = datos;
+        document.querySelector("footer").classList.remove("fixed-bottom");
+
+        import("./empleado.js").then((obj) => {
+          rm = obj;
+          rm.inicializar();
+        });
+      });
+  });
   
 const registrosPorPagina = 5;
 let paginaActual = 1;
