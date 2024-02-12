@@ -32,7 +32,7 @@ public class Empleado {
 
     // Método para generar un código único
     public void generarCodigoUnico() {
-         codigoUnico = nombre.substring(1) + apellidoP.substring(1) + apellidoM.substring(1) + "chatNoir";
+         codigoUnico = String.valueOf(nombre.charAt(0)) + String.valueOf(apellidoP.charAt(0)) + String.valueOf(apellidoM.charAt(0)) + "chatNoir";
     }
     
     public int getIdEmpleado() {
