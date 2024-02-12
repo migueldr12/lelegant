@@ -15,49 +15,45 @@ export const inicializar = function(){
         const txtFoto = document.getElementById("txtFoto");
         const txtCodigoBarras = document.getElementById("txtCodigoBarras");
         
-        // Remover clases de error de todos los campos
         const campos = [txtNombre, txtDescripcion, txtAnioLanzamiento, txtMarca, txtPresentacion, txtGenero, txtDepartamento, txtPrecioInventario, txtCantidad, txtPrecioSugerido, txtFoto, txtCodigoBarras];
         campos.forEach(function(campo) {
             campo.classList.remove('input-error');
         });
 
-        // Validaciones
-        if (
-            !txtNombre.value.trim() ||
-            !txtDescripcion.value.trim() ||
-            !txtAnioLanzamiento.value.trim() ||
-            !txtMarca.value.trim() ||
-            !txtPresentacion.value.trim() ||
-            !txtGenero.value.trim() ||
-            !txtDepartamento.value.trim() ||
-            !txtPrecioInventario.value.trim() ||
-            !txtCantidad.value.trim() ||
-            !txtPrecioSugerido.value.trim() ||
-            !txtFoto.value.trim() ||
-            !txtCodigoBarras.value.trim()
-        ) {
-            alert('Por favor complete todos los campos.');
-            resaltarCamposVacios(campos);
+        const mostrarAlerta = function (elementos) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                didOpen: toast => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                },
+            });
+            Toast.fire({
+                icon: 'error',
+                title: 'Llene todos los campos',
+            });
+
+            elementos.forEach(elemento => elemento.classList.add('input-error'));
+        };
+
+        const camposVacios = campos.filter((campo) => campo.value.trim() === '');
+
+        if (camposVacios.length > 0) {
+            mostrarAlerta(camposVacios);
             return;
         }
 
-        if (isNaN(txtAnioLanzamiento.value.trim())) {
-            alert('El año de lanzamiento debe ser un número válido.');
-            txtAnioLanzamiento.classList.add('input-error');
+        const camposNumericos = [txtAnioLanzamiento, txtPrecioInventario, txtCantidad, txtPrecioSugerido];
+        const camposInvalidos = camposNumericos.filter(campo => isNaN(campo.value.trim()));
+
+        if (camposInvalidos.length > 0) {
+            mostrarAlerta(camposInvalidos);
             return;
         }
 
-        if (
-            isNaN(txtPrecioInventario.value.trim()) ||
-            isNaN(txtCantidad.value.trim()) ||
-            isNaN(txtPrecioSugerido.value.trim())
-        ) {
-            alert('El precio de inventario, cantidad y precio sugerido deben ser números válidos.');
-            resaltarCamposInvalidos([txtPrecioInventario, txtCantidad, txtPrecioSugerido]);
-            return;
-        }
-        
-        // Si pasa la validación, continuar con el envío de los datos
         const appContext = window.location.pathname.split('/')[1];
         fetch(`/${appContext}/api/producto/insert`, {
             method: 'POST',
@@ -111,7 +107,6 @@ export const inicializar = function(){
     });
 }
 
-// Función para resaltar campos vacíos
 function resaltarCamposVacios(campos) {
     campos.forEach(function(campo) {
         if (!campo.value.trim()) {
@@ -120,7 +115,6 @@ function resaltarCamposVacios(campos) {
     });
 }
 
-// Función para resaltar campos con valores inválidos
 function resaltarCamposInvalidos(campos) {
     campos.forEach(function(campo) {
         if (isNaN(campo.value.trim())) {
