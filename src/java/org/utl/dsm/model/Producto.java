@@ -3,9 +3,9 @@ package org.utl.dsm.model;
 import java.sql.Date;
 
 public class Producto {
-    private int idProducto = 0;
+    private int idProducto;
     private String nombreProducto;
-    private Date anioLanzamiento;
+    private String anioLanzamiento;
     private String marca;
     private String descripcion;
     private String genero;
@@ -14,9 +14,9 @@ public class Producto {
     private int cantidad;
     private double precioSugerido;
     private String foto;
-    private String rutaFoto;
+    private String presentacion;
     private String codigoBarras;
-    private int estatus;
+    private int estatus  = 1;
 
     public int getIdProducto() {
         return idProducto;
@@ -25,7 +25,15 @@ public class Producto {
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
+    
+    public String getPresentacion() {
+        return presentacion;
+    }
 
+    public void setPresentacion(String presentacion) {
+        this.presentacion = presentacion;
+    }
+    
     public String getNombreProducto() {
         return nombreProducto;
     }
@@ -34,11 +42,11 @@ public class Producto {
         this.nombreProducto = nombreProducto;
     }
 
-    public Date getAnioLanzamiento() {
+    public String getAnioLanzamiento() {
         return anioLanzamiento;
     }
 
-    public void setAnioLanzamiento(Date anioLanzamiento) {
+    public void setAnioLanzamiento(String anioLanzamiento) {
         this.anioLanzamiento = anioLanzamiento;
     }
 
@@ -106,14 +114,6 @@ public class Producto {
         this.foto = foto;
     }
 
-    public String getRutaFoto() {
-        return rutaFoto;
-    }
-
-    public void setRutaFoto(String rutaFoto) {
-        this.rutaFoto = rutaFoto;
-    }
-
     public String getCodigoBarras() {
         return codigoBarras;
     }
@@ -129,6 +129,12 @@ public class Producto {
     public void setEstatus(int estatus) {
         this.estatus = estatus;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", anioLanzamiento=" + anioLanzamiento + ", marca=" + marca + ", descripcion=" + descripcion + ", genero=" + genero + ", departamento=" + departamento + ", precioInventario=" + precioInventario + ", cantidad=" + cantidad + ", precioSugerido=" + precioSugerido + ", foto=" + foto + ", codigoBarras=" + codigoBarras + ", estatus=" + estatus + '}';
+    }
+
     
     
 }

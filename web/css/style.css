@@ -90,6 +90,10 @@ a:hover {
     transition: .5s;
 }
 
+.btn:hover {
+    background: initial; /* O el color que desees para este enlace específico */
+    transition: .5s;
+}
 .checkbtn {
     font-size: 30px;
     color: white;
@@ -304,4 +308,7 @@ section {
     background: url(bg1.jpg) no-repeat;
     background-size: cover;
     height: calc(100vh - 80px);
+}
+.table-responsive {
+  overflow-x: auto;
 }
