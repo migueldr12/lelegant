@@ -6,7 +6,7 @@ public class Empleado {
     private String puesto;
     private int salarioBruto;
     private String email;
-    private String codigoUnico;
+    private String codigoUnico = "";
     private int idPersona;
     private int idUsuario;
     private String nombre;
@@ -16,7 +16,7 @@ public class Empleado {
     private String fechaDeNacimiento;
     private String RFC;
     private String CURP;
-    private int estatus;
+    private int estatus = 1;
     private String foto;
     private String calle;
     private String numero;
@@ -25,7 +25,7 @@ public class Empleado {
     private String estado;
     private String codigoPostal;
     private String telefono;
-    private String user;
+    private String user = "";
     private String password;
     private boolean permiso;
 

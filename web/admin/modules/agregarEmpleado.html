@@ -29,18 +29,27 @@
                     <label for="txtGenero" class="form-label mt-1">Género</label>
                     <select class="form-select" id="txtGenero">
                         <option></option>
-                        <option value="m">Masculino</option>
-                        <option value="f">Femenino</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
                     </select>
 
                     <label for="txtFechaNacimiento" class="form-label mt-1">Fecha de Nacimiento</label>
                     <input type="date" class="form-control mb-1" id="txtFechaNacimiento">
+                    
+                    <label for="txtFechaIngreso" class="form-label mt-1">Fecha de Ingreso</label>
+                    <input type="date" class="form-control mb-1" id="txtFechaIngreso">
 
                     <label for="txtRFC" class="form-label mt-1">RFC</label>
                     <input type="text" class="form-control mb-1" id="txtRFC">
 
                     <label for="txtCURP" class="form-label mt-1">CURP</label>
-                    <input type="text" class="form-control" id="txtCURP">
+                    <input type="text" class="form-control mb-1" id="txtCURP">
+
+                    <label for="txtEmail" class="form-label mt-1">Email</label>
+                    <input type="email" class="form-control mb-1" id="txtEmail">
+
+                    <label for="txtPassword" class="form-label mt-1">Contraseña</label>
+                    <input type="password" class="form-control" id="txtPassword">
                 </div>
                 <div class="col-6">
                     <label for="txtFoto" class="form-label mt-1">Foto</label>
@@ -66,6 +75,15 @@
 
                     <label for="txtTelefono" class="form-label mt-1">Teléfono</label>
                     <input type="text" class="form-control" id="txtTelefono">
+
+                    <label for="txtPermiso" class="form-label mt-1">Permiso</label>
+                    <select class="form-select" id="txtPermiso">
+                        <option value="1">Administrador</option>
+                        <option value="0">Empleado</option>
+                    </select>
+                    
+                    <label for="txtPuesto" class="form-label mt-1">Puesto</label>
+                    <input type="text" class="form-control mb-1" id="txtPuesto">
                 </div>
             </div>
         </form>

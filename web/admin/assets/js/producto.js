@@ -16,25 +16,6 @@ document
         });
       });
   });
-let rm = null;
-
-document
-  .getElementById("btnRegistroEmpleado")
-  .addEventListener("click", function () {
-    fetch("./modules/agregarEmpleado.html")
-      .then((respuesta) => {
-        return respuesta.text();
-      })
-      .then((datos) => {
-        document.getElementById("contenedorPrincipal").innerHTML = datos;
-        document.querySelector("footer").classList.remove("fixed-bottom");
-
-        import("./empleado.js").then((obj) => {
-          rm = obj;
-          rm.inicializar();
-        });
-      });
-  });
   
 const registrosPorPagina = 5;
 let paginaActual = 1;
@@ -76,7 +57,6 @@ const acomodarElementos = function (elementos, tabla) {
                       <td>${elemento.genero}</td>
                       <td>${elemento.cantidad}</td>
                       <td>${elemento.precioSugerido}</td>
-                      <td>${elemento.foto}</td>
                       <td>${elemento.codigoBarras}</td>
                       <td style = "display: none">${elemento.idProducto}</td>
                       <td><a class="btn" href="#" onclick='editarElemento(event, ${JSON.stringify(elemento)})'><i class="bi bi-pencil-fill m-2"></i></a><a class="btn" href="#" onclick="eliminarProducto(${elemento.idProducto})"><i class="bi bi-trash m-2"></i></a></td>
@@ -136,19 +116,17 @@ const acomodarElementosNuevos = function (elementos, tabla) {
             row =   `<tr>
                       <td>${elemento.nombreProducto}</td>
                       <td>${elemento.descripcion}</td>
-                      <td>${elemento.anioLanzamiento}</td>
                       <td>${elemento.marca}</td>
                       <td>${elemento.genero}</td>
-                      <td>${elemento.departamento}</td>
-                      <td>${elemento.precioInventario}</td>
                       <td>${elemento.cantidad}</td>
                       <td>${elemento.precioSugerido}</td>
-                      <td>${elemento.foto}</td>
                       <td>${elemento.codigoBarras}</td>
                       <td style = "display: none">${elemento.idProducto}</td>
                       <td><a class="btn" href="#" onclick='editarElemento(event, ${JSON.stringify(elemento)})'><i class="bi bi-pencil-fill m-2"></i></a><a class="btn" href="#" onclick="eliminarProducto(${elemento.idProducto})"><i class="bi bi-trash m-2"></i></a></td>
                     </tr>`;
-            tabla.innerHTML = row;
+            tabla.insertAdjacentHTML(
+                "beforeend", row
+            );
         }
     });
     

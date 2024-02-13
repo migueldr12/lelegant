@@ -1,112 +1,218 @@
-export const inicializar = function(){
-    document.getElementById('btnRegistroEmpleado').addEventListener('click', function(){
-        // Extraer elementos del formulario de registro de empleados
-        const txtNombre = document.getElementById("txtNombre");
-        const txtApellidoPaterno = document.getElementById("txtApellidoPaterno");
-        const txtApellidoMaterno = document.getElementById("txtApellidoMaterno");
-        const txtGenero = document.getElementById("txtGenero");
-        const txtFechaNacimiento = document.getElementById("txtFechaNacimiento");
-        const txtRFC = document.getElementById("txtRFC");
-        const txtCURP = document.getElementById("txtCURP");
-        const txtFoto = document.getElementById("txtFoto");
-        const txtCalle = document.getElementById("txtCalle");
-        const txtNumero = document.getElementById("txtNumero");
-        const txtColonia = document.getElementById("txtColonia");
-        const txtCiudad = document.getElementById("txtCiudad");
-        const txtEstado = document.getElementById("txtEstado");
-        const txtCodigoPostal = document.getElementById("txtCodigoPostal");
-        const txtTelefono = document.getElementById("txtTelefono");
+let rm = null;
+document.getElementById("btnRegistroEmpleado").addEventListener("click", function(){
+    fetch("./modules/agregarEmpleado.html")
+    .then((respuesta) => {
+        return respuesta.text();
+    })
+    .then((datos) => {
+        document.getElementById("contenedorPrincipal").innerHTML = datos;
+        document.querySelector("footer").classList.remove("fixed-bottom");
+        
+        import("./empleados.js").then((obj) => {
+          rm = obj;
+          rm.inicializar();
+        });
+    })
+})
 
-        console.log(txtNombre.value);
+const registrosPorPagina = 5;
+let paginaActual = 1;
 
-        const limpiarFormulario = function(){
-            // Limpiar los campos del formulario de registro de empleados
-            txtNombre.value = '';
-            txtApellidoPaterno.value = '';
-            txtApellidoMaterno.value = '';
-            txtGenero.value = '';
-            txtFechaNacimiento.value = '';
-            txtRFC.value = '';
-            txtCURP.value = '';
-            txtFoto.value = '';
-            txtCalle.value = '';
-            txtNumero.value = '';
-            txtColonia.value = '';
-            txtCiudad.value = '';
-            txtEstado.value = '';
-            txtCodigoPostal.value = '';
-            txtTelefono.value = '';
-        }
-
-        const appContext = window.location.pathname.split('/')[1];
-        fetch(`/${appContext}/api/empleado/insert`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                nombre: txtNombre.value,
-                apellidoPaterno: txtApellidoPaterno.value,
-                apellidoMaterno: txtApellidoMaterno.value,
-                genero: txtGenero.value,
-                fechaDeNacimiento: txtFechaNacimiento.value,
-                RFC: txtRFC.value,
-                CURP: txtCURP.value,
-                foto: txtFoto.value,
-                calle: txtCalle.value,
-                numero: txtNumero.value,
-                colonia: txtColonia.value,
-                ciudad: txtCiudad.value,
-                estado: txtEstado.value,
-                codigoPostal: txtCodigoPostal.value,
-                telefono: txtTelefono.value,
-            }),
-        }).then(response => {
+const getAllEmpleados = function () {
+    const appContext = window.location.pathname.split("/")[1];
+    fetch(`/${appContext}/api/empleado/getAll`)
+        .then((response) => {
             if (response.ok) {
                 return response.json();
             } else {
                 throw new Error(`Error en la solicitud: ${response.statusText}`);
             }
-        }).then(data => {
-            if(data > 0){
-                // Mostrar mensaje de éxito y limpiar formulario
-                Swal.fire({
-                    title: 'Correcto',
-                    text: 'Empleado registrado correctamente',
-                    icon: 'success',
-                    showCancelButton: true,
-                    confirmButtonText: 'Continuar',
-                    cancelButtonText: 'Agregar uno nuevo'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirigir a la página de empleados
-                        location.href = './empleados.html'
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        // Limpiar formulario para agregar uno nuevo
-                        limpiarFormulario();
-                    }
-                });
-            } else {
-                console.log('not ok');
-            }
+        })
+        .then((data) => {
+            console.log(data);
+            acomodarElementos(data, document.getElementById("tblEmpleados"));
+            //          console.log(data);
         });
+};
+
+
+
+const acomodarElementos = function (elementos, tabla) {
+
+    const indiceInicial = (paginaActual - 1) * registrosPorPagina;
+    const indiceFinal = paginaActual * registrosPorPagina;
+    
+    const elementosActivos = elementos.filter(elemento => elemento.estatus === 1);
+
+    const elementosPagina = elementosActivos.slice(indiceInicial, indiceFinal);
+
+    elementosPagina.forEach(elemento => {
+        if (elemento.estatus === 1) {
+            row =   `<tr>
+                      <td>${elemento.nombre + " " + elemento.apellidoP + " " + elemento.apellidoM}</td>
+                      <td>${elemento.RFC}</td>
+                      <td>${elemento.calle + " " + elemento.numero + " " + elemento.colonia + " " + elemento.codigoPostal}</td>
+                      <td>${elemento.telefono}</td>
+                      <td>${elemento.user}</td>
+                      <td><a class="btn" href="#" onclick='editarElemento(event, ${JSON.stringify(elemento)})'><i class="bi bi-pencil-fill m-2"></i></a><a class="btn" href="#" onclick="eliminarEmpleado(${elemento.idEmpleado})"><i class="bi bi-trash m-2"></i></a></td>
+                    </tr>`;
+            tabla.insertAdjacentHTML(
+                "beforeend", row
+            );
+        }
     });
-}
-export const editarElementos = function (elemento){
-    // Rellenar los campos del formulario con los datos del empleado a editar
-    document.getElementById("txtNombre").value = elemento.nombre;
-    document.getElementById("txtApellidoPaterno").value = elemento.apellidoPaterno;
-    document.getElementById("txtApellidoMaterno").value = elemento.apellidoMaterno;
-    document.getElementById("txtGenero").value = elemento.genero;
-    document.getElementById("txtFechaNacimiento").value = elemento.fechaDeNacimiento;
-    document.getElementById("txtRFC").value = elemento.RFC;
-    document.getElementById("txtCURP").value = elemento.CURP;
-    document.getElementById("txtFoto").value = elemento.foto;
-    document.getElementById("txtCalle").value = elemento.calle;
-    document.getElementById("txtNumero").value = elemento.numero;
-    document.getElementById("txtColonia").value = elemento.colonia;
-    document.getElementById("txtCiudad").value = elemento.ciudad;
-    document.getElementById("txtEstado").value = elemento.estado;
-    document.getElementById("txtCodigoPostal").value = elemento.codigoPostal;
-    document.getElementById("txtTelefono").value = elemento.telefono;
-}
+    
+    const mostrarBotonesPaginacion = function (totalRegistros, tablaB) {
+        console.log(totalRegistros, registrosPorPagina)
+        const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina);
+
+        console.log(totalPaginas)
+
+        // Limpia los botones de paginación antes de volver a generarlos
+        const paginationRow = document.getElementById('paginationRow');
+        paginationRow.innerHTML = '';
+
+        // Agrega los botones de paginación
+        for (let i = 1; i <= totalPaginas; i++) {
+            const button = document.createElement('button');
+            button.innerText = i;
+            button.classList.add('btn', 'btn-secondary', 'mx-1');
+            button.addEventListener('click', function () {
+                paginaActual = i;
+                if(i > 1){
+                    acomodarElementosNuevos(elementos, tablaB);
+                } else {
+                    acomodarElementos(elementos, tablaB)
+                }
+                mostrarBotonesPaginacion(totalRegistros, tablaB);
+            });
+            if(paginaActual === i){
+                    button.disabled = true;
+                }
+            paginationRow.appendChild(button);
+        }
+    };
+    
+    mostrarBotonesPaginacion(elementosActivos.length, tabla);
+        
+};
+
+const acomodarElementosNuevos = function (elementos, tabla) {
+
+    const indiceInicial = (paginaActual - 1) * registrosPorPagina;
+    const indiceFinal = paginaActual * registrosPorPagina;
+    
+    const elementosActivos = elementos.filter(elemento => elemento.estatus === 1);
+
+    const elementosPagina = elementosActivos.slice(indiceInicial, indiceFinal);
+
+    elementosPagina.forEach(elemento => {
+        if (elemento.estatus === 1) {
+            row =   `<tr>
+                      <td>${elemento.nombre + " " + elemento.apellidoP + " " + elemento.apellidoM}</td>
+                      <td>${elemento.RFC}</td>
+                      <td>${elemento.calle + " " + elemento.numero + " " + elemento.colonia + " " + elemento.codigoPostal}</td>
+                      <td>${elemento.telefono}</td>
+                      <td>${elemento.user}</td>
+                      <td><a class="btn" href="#" onclick='editarElemento(event, ${JSON.stringify(elemento)})'><i class="bi bi-pencil-fill m-2"></i></a><a class="btn" href="#" onclick="eliminarEmpleado(${elemento.idEmpleado})"><i class="bi bi-trash m-2"></i></a></td>
+                    </tr>`;
+            tabla.innerHTML = row;
+        }
+    });
+    
+    const mostrarBotonesPaginacion = function (totalRegistros, tablaB) {
+        console.log(totalRegistros, registrosPorPagina)
+        const totalPaginas = Math.ceil(totalRegistros / registrosPorPagina);
+
+        console.log(totalPaginas)
+
+        // Limpia los botones de paginación antes de volver a generarlos
+        const paginationRow = document.getElementById('paginationRow');
+        paginationRow.innerHTML = '';
+
+        // Agrega los botones de paginación
+        for (let i = 1; i <= totalPaginas; i++) {
+            const button = document.createElement('button');
+            button.innerText = i;
+            button.classList.add('btn', 'btn-secondary', 'mx-1');
+            button.addEventListener('click', function () {
+                paginaActual = i;
+                acomodarElementosNuevos(elementos, tablaB);
+                mostrarBotonesPaginacion(totalRegistros, tablaB);
+            });
+            paginationRow.appendChild(button);
+        }
+    };
+    
+    mostrarBotonesPaginacion(elementosActivos.length, tabla);
+        
+};
+
+const editarElemento = function(event, elemento){
+    event.preventDefault();
+    fetch("./modules/agregarEmpleado.html")
+      .then((respuesta) => {
+        return respuesta.text();
+      })
+      .then((datos) => {
+        document.getElementById("contenedorPrincipal").innerHTML = datos;
+        document.querySelector("footer").classList.remove("fixed-bottom");
+
+        import("./empleados.js").then((obj) => {
+          cm = obj;
+          cm.inicializar();
+          cm.editarElementos(elemento);
+        });
+      });
+    
+};
+
+getAllEmpleados();
+
+const eliminarEmpleado = function (id) {
+  const appContext = window.location.pathname.split("/")[1];
+
+  Swal.fire({
+    title: "Eliminacion",
+    text: "Seguro que quieres eliminar este registro",
+    icon: "question",
+    confirmButtonText: "Si",
+    cancelButtonText: "Cancelar",
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`/${appContext}/api/empleado/delete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(id),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+          }
+        })
+        .then((data) => {
+          if (data > 0) {
+            Swal.fire({
+              title: "Eliminado",
+              text: "Registro eliminado correctamente",
+              icon: "success",
+            }).then(() => {
+                window.location.reload();
+            });
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: "Ocurrio un error",
+              icon: "error",
+            });
+          }
+        });
+    }
+  });
+};
+
