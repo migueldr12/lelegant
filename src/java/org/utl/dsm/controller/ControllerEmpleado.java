@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.utl.dsm.conexion.conexionBD;
 import org.utl.dsm.model.Empleado;
+import org.utl.dsm.model.Usuario;
 
 public class ControllerEmpleado {
     
@@ -45,8 +46,11 @@ public class ControllerEmpleado {
             stmt.setInt(18, empleado.getSalarioBruto());
             stmt.setString(19, empleado.getEmail());
             stmt.setString(20, empleado.getCodigoUnico());
-            stmt.setString(21, empleado.getPassword());
-            stmt.setBoolean(22, empleado.isPermiso());
+            if (empleado.getUsuario() == null) {
+                empleado.setUsuario(new Usuario());
+            }
+            stmt.setString(21, empleado.getUsuario().getPassword());
+            stmt.setBoolean(22, empleado.getUsuario().getPermiso());
             stmt.registerOutParameter(23, Types.INTEGER); // idPersona
             stmt.registerOutParameter(24, Types.INTEGER); // idUsuario
             stmt.registerOutParameter(25, Types.INTEGER); // idEmpleado
@@ -70,11 +74,9 @@ public class ControllerEmpleado {
         }
     }
     public static int update(Empleado empleado) throws SQLException {
-        final String sql = "{CALL actualizarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        final String sql = "{CALL actualizarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
         
         int validador = -1;
-        
-        empleado.generarCodigoUnico();
         
         // Con este objeto nos vamos a conectar a la Base de Datos:
         conexionBD connMySQL = new conexionBD();
@@ -102,9 +104,8 @@ public class ControllerEmpleado {
             stmt.setString(18, empleado.getPuesto());
             stmt.setInt(19, empleado.getSalarioBruto());
             stmt.setString(20, empleado.getEmail());
-            stmt.setString(21, empleado.getCodigoUnico());
-            stmt.setString(22, empleado.getPassword());
-            stmt.setBoolean(23, empleado.isPermiso());
+            stmt.setString(21, empleado.getUsuario().getPassword());
+            stmt.setBoolean(22, empleado.getUsuario().getPermiso());
 
             stmt.executeUpdate();
 
@@ -157,34 +158,7 @@ public class ControllerEmpleado {
             List<Empleado> empleados = new ArrayList<>();
 
             while (rs.next()) {
-                Empleado empleado = new Empleado();
-                empleado.setIdEmpleado(rs.getInt("idEmpleado"));
-                empleado.setFechaIngreso(rs.getString("fechaIngreso"));
-                empleado.setPuesto(rs.getString("puesto"));
-                empleado.setSalarioBruto(rs.getInt("salarioBruto"));
-                empleado.setEmail(rs.getString("email"));
-                empleado.setCodigoUnico(rs.getString("codigoUnico"));
-                empleado.setNombre(rs.getString("nombre"));
-                empleado.setApellidoP(rs.getString("apellidoP"));
-                empleado.setApellidoM(rs.getString("apellidoM"));
-                empleado.setGenero(rs.getString("genero"));
-                empleado.setFechaDeNacimiento(rs.getString("fechaDeNacimiento"));
-                empleado.setRFC(rs.getString("RFC"));
-                empleado.setCURP(rs.getString("CURP"));
-                empleado.setFoto(rs.getString("foto"));
-                empleado.setCalle(rs.getString("calle"));
-                empleado.setNumero(rs.getString("numero"));
-                empleado.setColonia(rs.getString("colonia"));
-                empleado.setCiudad(rs.getString("ciudad"));
-                empleado.setEstado(rs.getString("estado"));
-                empleado.setCodigoPostal(rs.getString("codigoPostal"));
-                empleado.setTelefono(rs.getString("telefono"));
-                empleado.setUser(rs.getString("user"));
-                empleado.setPassword(rs.getString("password"));
-                empleado.setPermiso(rs.getBoolean("permiso"));
-                empleado.setEstatus(rs.getInt("estatus"));
-
-                empleados.add(empleado);
+                empleados.add(fill(rs));
             }
 
             return empleados;
@@ -192,5 +166,39 @@ public class ControllerEmpleado {
             connMySQL.close();
         }
     }
+    private static Empleado fill(ResultSet rs) throws SQLException{
+        Empleado empleado = new Empleado();
+        empleado.setIdEmpleado(rs.getInt("idEmpleado"));
+        empleado.setFechaIngreso(rs.getString("fechaIngreso"));
+        empleado.setPuesto(rs.getString("puesto"));
+        empleado.setSalarioBruto(rs.getInt("salarioBruto"));
+        empleado.setEmail(rs.getString("email"));
+        empleado.setCodigoUnico(rs.getString("codigoUnico"));
+        empleado.setNombre(rs.getString("nombre"));
+        empleado.setApellidoP(rs.getString("apellidoP"));
+        empleado.setApellidoM(rs.getString("apellidoM"));
+        empleado.setGenero(rs.getString("genero"));
+        empleado.setFechaDeNacimiento(rs.getString("fechaDeNacimiento"));
+        empleado.setRFC(rs.getString("RFC"));
+        empleado.setCURP(rs.getString("CURP"));
+        empleado.setFoto(rs.getString("foto"));
+        empleado.setCalle(rs.getString("calle"));
+        empleado.setNumero(rs.getString("numero"));
+        empleado.setColonia(rs.getString("colonia"));
+        empleado.setCiudad(rs.getString("ciudad"));
+        empleado.setEstado(rs.getString("estado"));
+        empleado.setCodigoPostal(rs.getString("codigoPostal"));
+        empleado.setTelefono(rs.getString("telefono"));
+        // Crear un nuevo usuario con los datos del ResultSet
+        // usamos el constructor con todos los datos a excepcion
+        // del id.
+        Usuario usuario = new Usuario(rs.getString("user"), rs.getString("password"), rs.getBoolean("permiso"));
+        empleado.setUsuario(usuario);
+        empleado.setEstatus(rs.getInt("estatus"));
+
+        System.out.println(empleado);
+        return empleado;
+    }
+
 
 }

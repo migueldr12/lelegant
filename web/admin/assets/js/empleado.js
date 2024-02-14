@@ -53,7 +53,7 @@ const acomodarElementos = function (elementos, tabla) {
                       <td>${elemento.RFC}</td>
                       <td>${elemento.calle + " " + elemento.numero + " " + elemento.colonia + " " + elemento.codigoPostal}</td>
                       <td>${elemento.telefono}</td>
-                      <td>${elemento.user}</td>
+                      <td>${elemento.usuario.username}</td>
                       <td><a class="btn" href="#" onclick='editarElemento(event, ${JSON.stringify(elemento)})'><i class="bi bi-pencil-fill m-2"></i></a><a class="btn" href="#" onclick="eliminarEmpleado(${elemento.idEmpleado})"><i class="bi bi-trash m-2"></i></a></td>
                     </tr>`;
             tabla.insertAdjacentHTML(
@@ -113,7 +113,7 @@ const acomodarElementosNuevos = function (elementos, tabla) {
                       <td>${elemento.RFC}</td>
                       <td>${elemento.calle + " " + elemento.numero + " " + elemento.colonia + " " + elemento.codigoPostal}</td>
                       <td>${elemento.telefono}</td>
-                      <td>${elemento.user}</td>
+                      <td>${elemento.usuario.username}</td>
                       <td><a class="btn" href="#" onclick='editarElemento(event, ${JSON.stringify(elemento)})'><i class="bi bi-pencil-fill m-2"></i></a><a class="btn" href="#" onclick="eliminarEmpleado(${elemento.idEmpleado})"><i class="bi bi-trash m-2"></i></a></td>
                     </tr>`;
             tabla.innerHTML = row;

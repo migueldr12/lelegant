@@ -27,8 +27,8 @@ const login = function (event) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        txtUser: userValue,
-        txtPassword: passValue,
+        username: userValue,
+        password: passValue,
       }),
     })
       .then(response => {
@@ -39,7 +39,7 @@ const login = function (event) {
         }
       })
       .then(data => {
-        if (data > 0) {
+        if (data.idUsuario > 0) {
           location.href = './admin/index.html';
         } else {
           Swal.fire({

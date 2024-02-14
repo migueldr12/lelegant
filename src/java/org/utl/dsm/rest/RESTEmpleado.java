@@ -27,16 +27,17 @@ public class RESTEmpleado {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public Response insert(String datosEmpleado) throws SQLException {
+        System.out.println(datosEmpleado);
         Empleado empleado = null;
-        ControllerEmpleado ce = null;
+        ControllerEmpleado ce = new ControllerEmpleado();
         Gson gson = new Gson();
         int idEmpleado = -1;
         try {
             empleado = gson.fromJson(datosEmpleado, Empleado.class);
             if (empleado.getIdEmpleado() > 0) {
-                idEmpleado = ControllerEmpleado.update(empleado);
+                idEmpleado = ce.update(empleado);
             } else {
-                idEmpleado = ControllerEmpleado.insert(empleado);
+                idEmpleado = ce.insert(empleado);
             }
         } catch (JsonParseException jpe) {
             jpe.printStackTrace();
@@ -48,9 +49,10 @@ public class RESTEmpleado {
     @Produces(MediaType.APPLICATION_JSON)
     @POST
     public Response delete(String idEmpleado) {
+        ControllerEmpleado ce = new ControllerEmpleado();
         int out = -1;
         try {
-            ControllerEmpleado.delete(Integer.parseInt(idEmpleado));
+            ce.delete(Integer.parseInt(idEmpleado));
             out = 1; 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,9 +64,10 @@ public class RESTEmpleado {
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response getAll() {
+        ControllerEmpleado ce = new ControllerEmpleado();
         List<Empleado> empleados = null;
         try {
-            empleados = ControllerEmpleado.getAll();
+            empleados = ce.getAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
