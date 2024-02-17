@@ -20,8 +20,7 @@ const login = function (event) {
       blockAlert.style.display = 'block';
     } else{
         const appContext = window.location.pathname.split('/')[1];
-    console.log(userValue, passValue);
-    fetch(`/${appContext}/api/login/log`, {
+    fetch(`/${appContext}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +38,7 @@ const login = function (event) {
         }
       })
       .then(data => {
-        if (data.idUsuario > 0) {
+        if (data !== null) {
           location.href = './admin/index.html';
         } else {
           Swal.fire({

@@ -14,7 +14,6 @@ import org.utl.dsm.model.Usuario;
 
 @Path("login")
 public class RESTLogin {
-    @Path("log")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
@@ -25,6 +24,7 @@ public class RESTLogin {
             user = loginController.log(usuario);
             Gson gson = new Gson();
             String json = gson.toJson(user);
+            System.out.println(json);
             return Response.status(Response.Status.OK).entity(json).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Error en el formato JSON").build();
