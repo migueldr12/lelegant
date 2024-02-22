@@ -1,25 +1,25 @@
 const login = function (event) {
-    event.preventDefault();
-  
-    const userValue = document.getElementById('txtUser').value;
-    const passValue = document.getElementById('txtPassword').value;
-    const userInput = document.getElementById('txtUser');
-    const passInput = document.getElementById('txtPassword');
-    const blockAlert = document.getElementById('txtAlerta');
-  
-    userInput.classList.remove('is-invalid');
-    passInput.classList.remove('is-invalid');
-    blockAlert.style.display = 'none';
-  
-    if (userValue === '' && passValue === '') {
-      userInput.classList.add('is-invalid');
-      passInput.classList.add('is-invalid');
-      blockAlert.style.display = 'block';
-    } else if(passValue === ''){
-      passInput.classList.add('is-invalid');
-      blockAlert.style.display = 'block';
-    } else{
-        const appContext = window.location.pathname.split('/')[1];
+  event.preventDefault();
+
+  const userValue = document.getElementById('txtUser').value;
+  const passValue = document.getElementById('txtPassword').value;
+  const userInput = document.getElementById('txtUser');
+  const passInput = document.getElementById('txtPassword');
+  const blockAlert = document.getElementById('txtAlerta');
+
+  userInput.classList.remove('is-invalid');
+  passInput.classList.remove('is-invalid');
+  blockAlert.style.display = 'none';
+
+  if (userValue === '' && passValue === '') {
+    userInput.classList.add('is-invalid');
+    passInput.classList.add('is-invalid');
+    blockAlert.style.display = 'block';
+  } else if (passValue === '') {
+    passInput.classList.add('is-invalid');
+    blockAlert.style.display = 'block';
+  } else {
+    const appContext = window.location.pathname.split('/')[1];
     fetch(`/${appContext}/api/login`, {
       method: 'POST',
       headers: {
@@ -39,6 +39,7 @@ const login = function (event) {
       })
       .then(data => {
         if (data !== null) {
+          localStorage.setItem("lastToken", data.lastToken);
           location.href = './admin/index.html';
         } else {
           Swal.fire({
@@ -56,8 +57,5 @@ const login = function (event) {
         // Manejar errores de red u otros errores
         console.error('Error en la solicitud:', error);
       });
-    }
-  
-    
-  };
-
+  }
+};

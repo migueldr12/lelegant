@@ -20,9 +20,11 @@ public class RESTLogin {
     public Response login(Usuario usuario) throws SQLException {
         Login loginController = new Login();
         Usuario user = null;
+        System.out.println(usuario);
         try {
             user = loginController.log(usuario);
             Gson gson = new Gson();
+            System.out.println(user);
             String json = gson.toJson(user);
             System.out.println(json);
             return Response.status(Response.Status.OK).entity(json).build();

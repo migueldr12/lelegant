@@ -5,6 +5,7 @@ public class Usuario {
     private String username;
     private String password;
     private boolean permiso;
+    private String lastToken;
 
     public Usuario(String username, String password, boolean permiso) {
         this.username = username;
@@ -13,11 +14,12 @@ public class Usuario {
     }
 
     
-    public Usuario(int idUsuario, String username, String password, boolean permiso) {
+    public Usuario(int idUsuario, String username, String password, boolean permiso, String lastToken) {
         this.idUsuario = idUsuario;
         this.username = username;
         this.password = password;
         this.permiso = permiso;
+        this.lastToken = lastToken;
     }
     
     public Usuario(String username, String password) {
@@ -60,6 +62,14 @@ public class Usuario {
         this.permiso = permiso;
     }
 
+    public String getLastToken() {
+        return lastToken;
+    }
+
+    public void setLastToken(String lastToken) {
+        this.lastToken = lastToken;
+    }
+    
     @Override
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", username=" + username + ", password=" + password + ", permiso=" + permiso + '}';
