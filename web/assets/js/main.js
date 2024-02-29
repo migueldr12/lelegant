@@ -38,8 +38,9 @@ const login = function (event) {
         }
       })
       .then(data => {
+        console.log(data);
         if (data !== null) {
-          localStorage.setItem("lastToken", data.lastToken);
+          localStorage.setItem("usuario", JSON.stringify(data));
           location.href = './admin/index.html';
         } else {
           Swal.fire({

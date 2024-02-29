@@ -56,7 +56,7 @@ public class Login {
                 usuarioResultante = fill(rs);
             }
         }
-        System.out.println(usuarioResultante);
+        System.out.println("este es el usuario resultante " + usuarioResultante.toString());
         return usuarioResultante;
     }
     private static Usuario fill(ResultSet rs) throws SQLException{
