@@ -1,0 +1,37 @@
+<div class="card m-3">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6 d-flex justify-content-center">
+                <h5>Registrar compra</h5>
+            </div>
+            <div class="col-3 d-flex justify-content-end">
+                <a class="btn" href="./compras.html">
+                    <i class="bi bi-x-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form>
+            <input id="txtIdEmpleado" value="0" style="display: none">
+            <div class="row">
+                <div class="col-6">
+                    <label for="txtNombre" class="form-label mt-1">Cantidad comprada</label>
+                    <input type="text" class="form-control mb-1" id="txtCantidadComprada">
+                    <label for="txtNombre" class="form-label mt-1">Precio unitario</label>
+                    <input type="text" class="form-control mb-1" id="txtPrecioUnitario">
+                </div>
+                <div class="col-6">
+                    <label for="txtGenero" class="form-label mt-1">Producto</label>
+                    <select class="form-select" id="txtProductos">
+                        <option selected></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-warning m-2" onclick="cm.agregarCompraEP(event)">Guardar</button>
+    </div>
+</div>

@@ -43,7 +43,7 @@ public class ControllerProducto {
         pstmt.setDouble(9, p.getPrecioSugerido());
         pstmt.setString(10, p.getFoto());
         pstmt.setString(11, p.getCodigoBarras());
-        pstmt.setInt(12, p.getEstatus());
+        pstmt.setBoolean(12, p.getEstatus());
         pstmt.setString(13, p.getDescripcion());
       
         pstmt.executeUpdate();
@@ -83,7 +83,7 @@ public class ControllerProducto {
         pstmt.setDouble(9, p.getPrecioSugerido());
         pstmt.setString(10, p.getFoto());
         pstmt.setString(11, p.getCodigoBarras());
-        pstmt.setInt(12, p.getEstatus());
+        pstmt.setBoolean(12, p.getEstatus());
         pstmt.setString(13, p.getDescripcion());
         pstmt.setInt(14, p.getIdProducto());
 
@@ -143,6 +143,33 @@ public class ControllerProducto {
         return productos;
     }
     
+    public static Producto getOne(int idProducto) throws SQLException, Exception {
+        String sql = "SELECT * FROM productos WHERE idProducto = ?";
+            
+        // Con este objeto nos vamos a conectar a la Base de Datos:
+        conexionBD connMySQL = new conexionBD();
+        // Abrimos la conexión con la Base de Datos:
+        Connection conn = connMySQL.open();
+        // Seteamos el ejecutable de sql
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        
+        pstmt.setInt(1, idProducto);
+        
+        // Aquí guardaremos los resultados de la consulta:
+        ResultSet rs = pstmt.executeQuery();
+        
+        Producto producto = null;
+        
+        while(rs.next()){
+            producto = fill(rs);
+        }
+        
+        rs.close();
+        pstmt.close();
+        connMySQL.close();
+        return producto;
+    }
+    
     private static Producto fill(ResultSet rs) throws Exception {
         Producto p = new Producto();
         p.setIdProducto(rs.getInt("idProducto"));
@@ -157,7 +184,7 @@ public class ControllerProducto {
         p.setPrecioSugerido(rs.getDouble("precioSugerido"));
         p.setFoto(rs.getString("foto"));
         p.setCodigoBarras(rs.getString("codigoBarras"));
-        p.setEstatus(rs.getInt("estatus"));
+        p.setEstatus(rs.getBoolean("estatus"));
         p.setPresentacion(rs.getString("presentacion"));
         return p;
     }

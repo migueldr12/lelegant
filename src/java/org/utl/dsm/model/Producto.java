@@ -3,8 +3,8 @@ package org.utl.dsm.model;
 import java.sql.Date;
 
 public class Producto {
-    private int idProducto;
-    private String nombreProducto;
+    public int idProducto;
+    public String nombreProducto;
     private String anioLanzamiento;
     private String marca;
     private String descripcion;
@@ -16,7 +16,23 @@ public class Producto {
     private String foto;
     private String presentacion;
     private String codigoBarras;
-    private int estatus  = 1;
+    public boolean estatus  = true;
+
+    public Producto(String nombreProducto, boolean estatus, int idProducto) {
+        this.nombreProducto = nombreProducto;
+        this.estatus = estatus;
+        this.idProducto = idProducto;
+    }
+
+    public Producto(String nombreProducto, boolean estatus) {
+        this.nombreProducto = nombreProducto;
+        this.estatus = estatus;
+    }
+    
+
+    public Producto() {
+    }
+    
 
     public int getIdProducto() {
         return idProducto;
@@ -122,11 +138,11 @@ public class Producto {
         this.codigoBarras = codigoBarras;
     }
 
-    public int getEstatus() {
+    public boolean getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(int estatus) {
+    public void setEstatus(boolean estatus) {
         this.estatus = estatus;
     }
 

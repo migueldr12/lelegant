@@ -10,7 +10,21 @@ public class Empleado extends Persona{
     private int estatus = 1;
     private Usuario usuario;
 
+    public Empleado() {
+    }
 
+    
+    
+    public Empleado(int idEmpleado, String fechaIngreso, String puesto, int salarioBruto, String email, Usuario usuario) {
+        this.idEmpleado = idEmpleado;
+        this.fechaIngreso = fechaIngreso;
+        this.puesto = puesto;
+        this.salarioBruto = salarioBruto;
+        this.email = email;
+        this.usuario = usuario;
+    }
+
+    
     // Método para generar un código único
     public void generarCodigoUnico() {
          codigoUnico = String.valueOf(this.getNombre().charAt(0)) + String.valueOf(this.getApellidoP().charAt(0)) + String.valueOf(this.getApellidoM().charAt(0)) + "chatNoir";

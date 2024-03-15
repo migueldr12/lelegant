@@ -41,6 +41,7 @@ const login = function (event) {
         console.log(data);
         if (data !== null) {
           localStorage.setItem("usuario", JSON.stringify(data));
+          console.log(localStorage);
           location.href = './admin/index.html';
         } else {
           Swal.fire({

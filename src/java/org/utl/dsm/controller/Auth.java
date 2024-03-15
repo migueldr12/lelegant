@@ -29,6 +29,7 @@ public class Auth {
                 usuarioResultante = fill(rs);
             }
         }
+        System.out.println("Este es el usuario de la auth" + usuarioResultante);
         return usuarioResultante;
     }
     private static Usuario fill(ResultSet rs) throws SQLException{
