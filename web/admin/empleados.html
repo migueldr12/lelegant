@@ -36,45 +36,47 @@
             </ul>
         </nav>
     </header>
-
-    <main id="contenedorPrincipal" class="d-flex">
-        <div class="card m-3">
-            <div class="card-header text-center">
-                <h5>Listado de empleados</h5>
-            </div>
-            <div class="card-body">
-                <div class="col-12 table-responsive">
-                    <table class="table">
-                        <thead class="bg-light text-center">
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">RFC</th>
-                            <th scope="col">Domicilio</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Usuario</th>
-                            <th style="display: none"></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-center" id="tblEmpleados">
-                        <!-- Agrega más filas según sea necesario -->
-                        </tbody>
-                    </table>
-                    <div id="paginationRow" class="text-center my-3"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 m-2">
+                <div class="card m-3">
+                    <div class="card-header text-center">
+                        <h5>Listado de empleados</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-12 table-responsive">
+                            <table class="table">
+                                <thead class="bg-light text-center">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">RFC</th>
+                                    <th scope="col">Domicilio</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Usuario</th>
+                                    <th style="display: none"></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-center" id="tblEmpleados">
+                                <!-- Agrega más filas según sea necesario -->
+                                </tbody>
+                            </table>
+                            <div id="paginationRow" class="text-center my-3"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        <button
+                                type="button"
+                                class="btn btn-warning m-2"
+                                id="btnRegistroEmpleado"
+                        >
+                            Registrar Empleado
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="card-footer d-flex justify-content-center">
-                <button
-                        type="button"
-                        class="btn btn-warning m-2"
-                        id="btnRegistroEmpleado"
-                >
-                    Registrar Empleado
-                </button>
-            </div>
         </div>
-    </main>
-
+    </div>
     <footer>
         <p class="footer-text">L'Élégant Chat Noir, 2024.</p>
     </footer>
