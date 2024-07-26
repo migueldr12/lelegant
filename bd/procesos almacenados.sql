@@ -43,8 +43,8 @@ BEGIN
     SET p_idUsuario = LAST_INSERT_ID();
     
     -- Insertar datos en la tabla empleado
-    INSERT INTO empleado (fechaIngreso, puesto, salarioBruto, email, codigoUnico, idPersona, idUsuario)
-    VALUES (p_fechaIngreso, p_puesto, p_salarioBruto, p_email, p_codigoUnico, p_idPersona, p_idUsuario);
+    INSERT INTO empleado (fechaIngreso, puesto, salarioBruto, email, codigoUnico, idPersona, idUser, idSucursal)
+    VALUES (p_fechaIngreso, p_puesto, p_salarioBruto, p_email, p_codigoUnico, p_idPersona, p_idUsuario, 1);
 
     -- Obtener el ID del último registro insertado en la tabla empleado
     SET p_idEmpleado = LAST_INSERT_ID();
@@ -124,3 +124,192 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE almacenarCompra(
+    IN p_idUser INT,
+    IN p_idProducto INT,
+    IN p_cantidad INT,
+    IN p_precioUnitario INT,
+    OUT p_idCompra INT
+)
+BEGIN
+    INSERT INTO compras (fechaCompra, estatus, idUser)
+    VALUES (CURDATE(), FALSE, p_idUser);
+    
+    SET @idCompra = LAST_INSERT_ID();
+    
+    INSERT INTO detalleCompra (idCompra, idProducto, cantidad, precioUnitario, total)
+    VALUES (@idCompra, p_idProducto, p_cantidad, p_precioUnitario, p_cantidad * p_precioUnitario);
+    
+    SET p_idCompra = @idCompra;
+    
+    COMMIT;
+END//
+
+CALL almacenarCompra(1, 1, 5, 200, @idCompra);
+SELECT @idCompra AS 'ID de Compra';
+
+
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE almacenarCompraNP(
+    IN p_idUser INT,
+    IN p_nombreProducto VARCHAR(256),
+    IN p_anioLanzamiento VARCHAR(40),
+    IN p_marca VARCHAR(40),
+    IN p_descripcion VARCHAR(40),
+    IN p_genero VARCHAR(2),
+    IN p_departamento VARCHAR(40),
+    IN p_precioInventario DOUBLE,
+    IN p_cantidad INT,
+    IN p_precioSugerido DOUBLE,
+    IN p_foto LONGTEXT,
+    IN p_codigoBarras VARCHAR(200),
+    IN p_presentacion VARCHAR(255),
+    OUT p_idCompra INT
+)
+BEGIN
+    INSERT INTO compras (fechaCompra, estatus, idUser)
+    VALUES (CURDATE(), FALSE, p_idUser);
+    
+    SET @idCompra = LAST_INSERT_ID();
+    
+    INSERT INTO productos(nombreProducto, anioLanzamiento, marca, descripcion, genero, departamento, precioInventario, cantidad, precioSugerido, foto, codigoBarras, estatus,  presentacion)
+    VALUES(p_nombreProducto, p_anioLanzamiento, p_marca, p_descripcion, p_genero, p_departamento, p_precioInventario, p_cantidad, p_precioSugerido, p_foto, p_codigoBarras, 0, p_presentacion);
+    
+    SET @idProducto = LAST_INSERT_ID();
+    
+    INSERT INTO detalleCompra (idCompra, idProducto, cantidad, precioUnitario, total)
+    VALUES (@idCompra, @idProducto, p_cantidad, p_precioSugerido, p_cantidad * p_precioSugerido);
+    
+    SET p_idCompra = @idCompra;
+    
+    COMMIT;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE atenderCompraNP(
+    IN p_idCompra INT
+)
+BEGIN
+    UPDATE compras SET estatus = TRUE WHERE idCompra = p_idCompra;
+    
+    IF ROW_COUNT() > 0 THEN
+        UPDATE productos p
+        JOIN detalleCompra dc ON p.idProducto = dc.idProducto
+        SET p.estatus = 1
+        WHERE dc.idCompra = p_idCompra;
+    END IF;
+
+    COMMIT;
+END//
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE atenderCompra(
+    IN p_idCompra INT
+)
+BEGIN
+    UPDATE compras SET estatus = TRUE WHERE idCompra = p_idCompra;
+    
+    -- Incrementar el stock del producto solo si la compra se marca como atendida
+    IF ROW_COUNT() > 0 THEN
+        UPDATE productos p
+        JOIN detalleCompra dc ON p.idProducto = dc.idProducto
+        SET p.cantidad = p.cantidad + dc.cantidad
+        WHERE dc.idCompra = p_idCompra;
+    END IF;
+
+    COMMIT;
+END//
+
+DELIMITER ;
+
+DELIMITER $$
+CREATE EVENT actualizar_estatus
+ON SCHEDULE EVERY 1 SECOND
+DO 
+BEGIN
+	UPDATE productos SET estatus = 0 WHERE cantidad = 0;
+END $$
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE registrarVenta(
+    IN p_cliente VARCHAR(256),
+    IN p_idProducto INT,
+    IN p_cantidad INT,
+    IN p_precioUnitario DOUBLE,
+    OUT p_idVenta INT
+)
+BEGIN
+    DECLARE totalVenta DOUBLE;
+    
+    -- Calcular total de la venta
+    SET totalVenta = p_cantidad * p_precioUnitario;
+    
+    -- Insertar venta en la tabla de ventas
+    INSERT INTO ventas (fechaVenta, horaVenta, cliente)
+    VALUES (CURDATE(), current_time(), p_cliente);
+    
+    -- Obtener el ID de la venta insertada
+    SET @idVenta = LAST_INSERT_ID();
+    
+    -- Insertar detalle de la venta en la tabla detalleVentas
+    INSERT INTO detalleVentas (idVenta, idProducto, cantidad, precioUnitario, total)
+    VALUES (@idVenta, p_idProducto, p_cantidad, p_precioUnitario, totalVenta);
+    
+    -- Reducir stock del producto en la sucursal
+    UPDATE productos
+    SET cantidad = cantidad - p_cantidad
+    WHERE idProducto = p_idProducto;
+    
+    SET p_idVenta = @idVenta;
+    
+    COMMIT;
+END//
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE cancelarVenta(
+    IN p_idVenta INT
+)
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE l_idProducto INT;
+    DECLARE l_cantidad INT;
+    DECLARE cur CURSOR FOR SELECT idProducto, cantidad FROM detalleVentas WHERE idVenta = p_idVenta;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    -- Actualizar estatus de la venta a cancelada (estatus = 0)
+    UPDATE ventas SET estatus = 0 WHERE idVenta = p_idVenta;
+    
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO l_idProducto, l_cantidad;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        -- Devolver stock al producto en la sucursal
+        UPDATE productos SET cantidad = cantidad + l_cantidad WHERE idProducto = l_idProducto;
+    END LOOP;
+    CLOSE cur;
+    
+    COMMIT;
+END//
+
+DELIMITER ;
+
+
